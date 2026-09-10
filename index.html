@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>అనుదిన ధ్యానం - Daily Devotion</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="అనుదిన ధ్యానం" />
+    <meta name="theme-color" content="#1e1b4b" />
+    <meta name="description" content="Daily Telugu Bible devotion, verse, and prayer." />
+    <meta name="application-name" content="అనుదిన ధ్యానం" />
+
+    <link rel="manifest" id="manifestLink" />
+    <link rel="icon" type="image/png" sizes="192x192" id="icon192" />
+    <link rel="apple-touch-icon" sizes="192x192" id="appleIcon" />
+
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Hind+Guntur:wght@300;400;500;600;700&family=Peddana&family=Noto+Serif+Telugu:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
+                            800: '#1e40af', 900: '#1e3a8a' },
+                        gold: { 50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d',
+                            400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' },
+                        emerald: { 50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7',
+                            400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857' },
+                        rose: { 50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5',
+                            400: '#f87171', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c' },
+                        purple: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd',
+                            400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9' },
+                        indigo: { 50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+                            400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', 'Noto Serif Telugu', system-ui, sans-serif;
+            background: #f3f0ff;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.35s ease, color 0.35s ease;
+        }
+        body.dark {
+            background: #0b1020;
+            color: #e2e8f0;
+        }
+
+        /* Keyboard accessibility: visible focus ring on all interactive elements */
+        button:focus-visible,
+        input:focus-visible,
+        a:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 2px solid #818cf8;
+            outline-offset: 2px;
+            border-radius: 6px;
+        }
+
+        /* Respect OS dark-mode preference on first load (before JS runs) */
+        @media (prefers-color-scheme: dark) {
+            body:not(.light) {
+                background: #0b1020;
+                color: #e2e8f0;
+            }
+        }
+
+        /* ---------- App shell ---------- */
+        .app-shell {
+            max-width: 720px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* ---------- Header / hero ---------- */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 55%, #4338ca 100%);
+            color: #f8fafc;
+            padding: 14px 18px 16px;
+            padding-top: max(14px, env(safe-area-inset-top));
+            box-shadow: 0 6px 24px rgba(30, 27, 75, 0.18);
+        }
+        body.dark .app-header {
+            background: linear-gradient(135deg, #0b1020 0%, #1e1b4b 55%, #312e81 100%);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+        }
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+        .logo-container {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(251, 191, 36, 0.6);
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .logo-container:hover {
+            border-color: #fbbf24;
+            transform: scale(1.05);
+        }
+        .logo-container img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .logo-container .default-logo {
+            font-size: 26px;
+            color: #fbbf24;
+        }
+        .logo-input { display: none; }
+
+        .brand-text { min-width: 0; }
+        .brand-title {
+            font-family: 'Peddana', 'Noto Serif Telugu', serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: #fff;
+        }
+        .brand-sub {
+            font-size: 11px;
+            font-weight: 500;
+            color: #c7d2fe;
+            margin-top: 1px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .hdr-btn {
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            border-radius: 11px;
+            padding: 8px 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.18s;
+            touch-action: manipulation;
+            color: #f8fafc;
+            background: rgba(255,255,255,0.12);
+        }
+        .hdr-btn:hover { background: rgba(255,255,255,0.22); }
+        .hdr-btn:active { transform: scale(0.94); }
+        .hdr-btn.icon-only {
+            width: 38px; height: 38px; padding: 0;
+            justify-content: center; font-size: 15px;
+        }
+        .hdr-btn.edit-on {
+            background: #fbbf24; color: #1e1b4b;
+        }
+        .hdr-btn.edit-on:hover { background: #f59e0b; }
+
+        /* ---------- Date nav ---------- */
+        .date-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 16px 18px 12px;
+        }
+        .date-arrow {
+            width: 44px; height: 44px;
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+            color: #4338ca;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.18s;
+            flex-shrink: 0;
+            touch-action: manipulation;
+        }
+        .date-arrow:hover {
+            background: #eef2ff;
+            border-color: #c7d2fe;
+        }
+        .date-arrow:active { transform: scale(0.92); }
+        body.dark .date-arrow {
+            background: #1e293b;
+            border-color: #334155;
+            color: #a5b4fc;
+        }
+        body.dark .date-arrow:hover {
+            background: #334155;
+            border-color: #4f46e5;
+        }
+
+        .date-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            min-width: 0;
+        }
+        .date-display {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #1e1b4b;
+            text-align: center;
+            line-height: 1.25;
+            font-family: 'Peddana', 'Noto Serif Telugu', serif;
+        }
+        body.dark .date-display { color: #f1f5f9; }
+
+        .today-badge {
+            background: #fbbf24;
+            color: #1e1b4b;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        body.dark .today-badge { color: #1e1b4b; }
+
+        input[type="date"] {
+            color-scheme: light;
+            font-size: 12px;
+            font-weight: 600;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 7px 10px;
+            outline: none;
+            color: #1e1b4b;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            min-height: 38px;
+        }
+        input[type="date"]:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+        body.dark input[type="date"] {
+            color-scheme: dark;
+            background: #1e293b;
+            border-color: #475569;
+            color: #f1f5f9;
+        }
+        body.dark input[type="date"]:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.18);
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.4);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.15s;
+        }
+        input[type="date"]:hover::-webkit-calendar-picker-indicator {
+            opacity: 1;
+        }
+        body.dark input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.85;
+        }
+        body.dark input[type="date"]:hover::-webkit-calendar-picker-indicator {
+            opacity: 1;
+        }
+
+        /* ---------- Content cards ---------- */
+        .content-area {
+            flex: 1;
+            padding: 6px 18px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card {
+            border-radius: 20px;
+            padding: 22px 20px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+            position: relative;
+        }
+        body.dark .card { border-color: #1e293b; }
+
+        .verse-card {
+            background: linear-gradient(150deg, #ffffff 0%, #f5f3ff 100%);
+            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.08);
+        }
+        body.dark .verse-card {
+            background: linear-gradient(150deg, #111827 0%, #1e1b4b 100%);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+        }
+
+        .devotion-card {
+            background: #ffffff;
+            box-shadow: 0 3px 14px rgba(15, 23, 42, 0.06);
+        }
+        body.dark .devotion-card {
+            background: #0f172a;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+        }
+
+        .prayer-card {
+            background: linear-gradient(150deg, #eef2ff 0%, #e0e7ff 100%);
+            border-color: #c7d2fe;
+            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.1);
+        }
+        body.dark .prayer-card {
+            background: linear-gradient(150deg, #1e1b4b 0%, #312e81 100%);
+            border-color: #4338ca;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6366f1;
+        }
+        body.dark .card-label { color: #a5b4fc; }
+
+        .pill-tag {
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 9px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .pill-edited {
+            color: #059669;
+            background: #d1fae5;
+        }
+        body.dark .pill-edited {
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.18);
+        }
+        .pill-edit-mode {
+            color: #b45309;
+            background: #fef3c7;
+        }
+        body.dark .pill-edit-mode {
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.18);
+        }
+
+        .verse-text {
+            font-size: 1.22rem;
+            line-height: 2;
+            color: #1e1b4b;
+        }
+        body.dark .verse-text { color: #e2e8f0; }
+        @media (max-width: 480px) {
+            .verse-text { font-size: 1.06rem; }
+        }
+
+        .verse-ref {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #4338ca;
+        }
+        body.dark .verse-ref { color: #818cf8; }
+
+        .bible-ref {
+            color: #4f46e5;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline 2px dotted #c7d2fe;
+            transition: color 0.15s;
+        }
+        body.dark .bible-ref {
+            color: #818cf8;
+            text-decoration-color: #4f46e5;
+        }
+        .bible-ref:hover { color: #4338ca; }
+        body.dark .bible-ref:hover { color: #a5b4fc; }
+
+        .devotion-title {
+            font-family: 'Peddana', 'Noto Serif Telugu', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.3;
+        }
+        body.dark .devotion-title { color: #f8fafc; }
+
+        .devotion-body {
+            color: #334155;
+            line-height: 1.85;
+            font-size: 0.96rem;
+        }
+        body.dark .devotion-body { color: #cbd5e1; }
+
+        .prayer-title {
+            font-family: 'Peddana', 'Noto Serif Telugu', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #3730a3;
+        }
+        body.dark .prayer-title { color: #c7d2fe; }
+
+        .prayer-body {
+            color: #3730a3;
+            line-height: 1.85;
+            font-size: 0.96rem;
+            font-style: italic;
+        }
+        body.dark .prayer-body { color: #c7d2fe; }
+
+        .telugu-text {
+            font-family: 'Hind Guntur', 'Noto Serif Telugu', sans-serif;
+            line-height: 1.9;
+        }
+
+        /* ---------- Buttons ---------- */
+        .btn {
+            padding: 11px 18px;
+            border-radius: 13px;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.18s;
+            border: 2px solid transparent;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-height: 46px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-primary {
+            background: #4f46e5; color: #fff; border-color: #4f46e5;
+        }
+        .btn-primary:hover { background: #4338ca; border-color: #4338ca; }
+        .btn-secondary {
+            background: #f1f5f9; color: #0f172a; border-color: #e2e8f0;
+        }
+        .btn-secondary:hover { background: #e2e8f0; }
+        body.dark .btn-secondary {
+            background: #1e293b; color: #f8fafc; border-color: #334155;
+        }
+        body.dark .btn-secondary:hover { background: #334155; }
+        .btn-success {
+            background: #059669; color: #fff; border-color: #059669;
+        }
+        .btn-success:hover { background: #047857; border-color: #047857; }
+        .btn-warn {
+            background: #d97706; color: #fff; border-color: #d97706;
+        }
+        .btn-warn:hover { background: #b45309; border-color: #b45309; }
+
+        /* Action row (share/copy/today) */
+        .action-row {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            justify-content: center; padding-top: 4px;
+        }
+
+        /* ---------- Bottom toolbar (Backup / Restore / Reset) ---------- */
+        .toolbar {
+            margin: 4px 18px 0;
+            padding: 12px;
+            border-radius: 18px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.07);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        body.dark .toolbar {
+            background: #0f172a;
+            border-color: #1e293b;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+        .toolbar-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            display: flex; align-items: center; gap: 6px;
+        }
+        body.dark .toolbar-label { color: #94a3b8; }
+        .toolbar-btns {
+            display: flex; gap: 8px; flex-wrap: wrap;
+        }
+        .tb-btn {
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            border-radius: 11px;
+            padding: 9px 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.18s;
+            touch-action: manipulation;
+        }
+        .tb-btn:active { transform: scale(0.94); }
+        .tb-backup {
+            background: #4f46e5; color: #fff;
+        }
+        .tb-backup:hover { background: #4338ca; }
+        .tb-restore {
+            background: #f1f5f9; color: #0f172a; border: 1.5px solid #e2e8f0;
+        }
+        .tb-restore:hover { background: #e2e8f0; }
+        body.dark .tb-restore {
+            background: #1e293b; color: #f8fafc; border-color: #334155;
+        }
+        body.dark .tb-restore:hover { background: #334155; }
+        .tb-reset {
+            background: transparent; color: #b91c1c;
+            border: 1.5px solid #fecaca;
+        }
+        .tb-reset:hover { background: #fee2e2; }
+        body.dark .tb-reset {
+            color: #f87171; border-color: #7f1d1d;
+        }
+        body.dark .tb-reset:hover { background: rgba(239, 68, 68, 0.12); }
+
+        /* ---------- Footer ---------- */
+        .app-footer {
+            text-align: center;
+            font-size: 11px;
+            color: #94a3b8;
+            padding: 18px 18px calc(26px + env(safe-area-inset-bottom));
+            margin-top: 8px;
+        }
+        body.dark .app-footer { color: #64748b; }
+        .app-footer .footer-mark {
+            color: #4f46e5;
+            font-weight: 700;
+        }
+        body.dark .app-footer .footer-mark { color: #818cf8; }
+
+        /* ---------- Install banner ---------- */
+        #installBanner {
+            display: none;
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: #1e1b4b;
+            color: #f8fafc;
+            padding: 14px 18px;
+            padding-bottom: max(14px, calc(14px + env(safe-area-inset-bottom)));
+            z-index: 10000;
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.4);
+            border-top: 3px solid #fbbf24;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        #installBanner.show { display: flex; }
+        #installBanner .banner-text {
+            flex: 1; min-width: 180px;
+            font-size: 13px; line-height: 1.4;
+        }
+        #installBanner .banner-text strong { color: #fbbf24; }
+        #installBanner .banner-btns {
+            display: flex; gap: 8px; flex-wrap: wrap;
+        }
+        #installBanner .install-btn {
+            background: #fbbf24; color: #0f172a;
+            padding: 10px 22px; border-radius: 11px; border: none;
+            font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.15s;
+        }
+        #installBanner .install-btn:hover { background: #f59e0b; transform: scale(1.02); }
+        #installBanner .dismiss-btn {
+            background: #334155; color: #f8fafc;
+            padding: 10px 18px; border-radius: 11px; border: none;
+            font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.15s;
+        }
+        #installBanner .dismiss-btn:hover { background: #475569; }
+
+        /* ---------- Edit mode ---------- */
+        .edit-field {
+            background: #fffbeb;
+            border: 2px solid #fbbf24;
+            border-radius: 12px;
+            padding: 10px 14px;
+            width: 100%;
+            font-family: 'Hind Guntur', 'Noto Serif Telugu', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #0f172a;
+            transition: all 0.2s;
+        }
+        body.dark .edit-field {
+            background: #1e293b; border-color: #f59e0b; color: #f8fafc;
+        }
+        .edit-field:focus {
+            outline: none; border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        .edit-textarea { min-height: 120px; resize: vertical; }
+        .edit-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+        .edit-label {
+            font-size: 11px; font-weight: 700; color: #64748b;
+            text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        body.dark .edit-label { color: #94a3b8; }
+
+        /* ---------- Scrollbar ---------- */
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        body.dark ::-webkit-scrollbar-thumb { background: #475569; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        body.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+        /* ---------- Animations ---------- */
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+            margin: 14px 0;
+        }
+        body.dark .card-divider {
+            background: linear-gradient(90deg, transparent, #1e293b, transparent);
+        }
+
+        @media (max-width: 480px) {
+            .app-header { padding: 12px 14px 14px; padding-top: max(12px, env(safe-area-inset-top)); }
+            .content-area { padding: 4px 14px 8px; }
+            .date-nav { padding: 14px 14px 10px; }
+            .toolbar { margin: 4px 14px 0; }
+            .brand-title { font-size: 1.1rem; }
+            .verse-text { font-size: 1.05rem; }
+            .card { padding: 18px 16px; }
+        }
+
+        /* ---------- Share Sheet ---------- */
+        .share-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(3px);
+            z-index: 11000;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .share-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+        @media (min-width: 600px) {
+            .share-overlay { align-items: center; }
+        }
+
+        .share-sheet {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            border-radius: 24px 24px 0 0;
+            padding: 8px 20px 24px;
+            padding-bottom: max(24px, calc(24px + env(safe-area-inset-bottom)));
+            box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.25);
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .share-overlay.show .share-sheet {
+            transform: translateY(0);
+        }
+        @media (min-width: 600px) {
+            .share-sheet {
+                border-radius: 24px;
+                transform: scale(0.9) translateY(20px);
+            }
+            .share-overlay.show .share-sheet {
+                transform: scale(1) translateY(0);
+            }
+        }
+        body.dark .share-sheet {
+            background: #0f172a;
+            box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .share-handle {
+            width: 40px; height: 5px;
+            background: #cbd5e1;
+            border-radius: 10px;
+            margin: 10px auto 6px;
+        }
+        body.dark .share-handle { background: #334155; }
+
+        .share-title {
+            font-family: 'Peddana', 'Noto Serif Telugu', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1e1b4b;
+            text-align: center;
+            margin-bottom: 2px;
+        }
+        body.dark .share-title { color: #f1f5f9; }
+
+        .share-sub {
+            font-size: 11px;
+            font-weight: 500;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        body.dark .share-sub { color: #94a3b8; }
+
+        .share-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        @media (max-width: 380px) {
+            .share-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        }
+
+        .share-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            padding: 10px 4px;
+            border-radius: 14px;
+            transition: background 0.15s, transform 0.12s;
+            touch-action: manipulation;
+        }
+        .share-item:hover { background: #f1f5f9; }
+        .share-item:active { transform: scale(0.92); }
+        body.dark .share-item:hover { background: #1e293b; }
+
+        .share-icon {
+            width: 48px; height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+        .share-icon.wa   { background: #25D366; }
+        .share-icon.tg   { background: #0088cc; }
+        .share-icon.mail { background: #6366f1; }
+        .share-icon.sms  { background: #10b981; }
+        .share-icon.copy { background: #64748b; }
+        .share-icon.more { background: #f59e0b; }
+
+        .share-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #475569;
+            text-align: center;
+            line-height: 1.2;
+        }
+        body.dark .share-label { color: #94a3b8; }
+
+        .share-preview {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #334155;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 160px;
+            overflow-y: auto;
+            margin-bottom: 14px;
+            font-family: 'Hind Guntur', 'Noto Serif Telugu', 'Inter', sans-serif;
+        }
+        body.dark .share-preview {
+            background: #1e293b;
+            border-color: #334155;
+            color: #cbd5e1;
+        }
+
+        .share-close {
+            width: 100%;
+            padding: 12px;
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            background: #f1f5f9;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.15s;
+            touch-action: manipulation;
+        }
+        .share-close:hover { background: #e2e8f0; }
+
+        .share-sig {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+            margin-bottom: 6px;
+        }
+        .share-sig img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid #c7d2fe;
+        }
+        .share-sig-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+        }
+        body.dark .share-sig-label { color: #cbd5e1; }
+        .share-close:active { transform: scale(0.97); }
+        body.dark .share-close {
+            background: #1e293b;
+            color: #f8fafc;
+            border-color: #334155;
+        }
+        body.dark .share-close:hover { background: #334155; }
+    </style>
+</head>
+<body>
+
+    <!-- INSTALL BANNER -->
+    <div id="installBanner">
+        <div class="banner-text"><strong>📖 అనుదిన ధ్యానం</strong> — Install this app on your phone for quick access.</div>
+        <div class="banner-btns">
+            <button class="install-btn" onclick="installApp()">📲 Install</button>
+            <button class="dismiss-btn" onclick="dismissInstallBanner()">✕ Later</button>
+        </div>
+    </div>
+
+    <!-- SHARE SHEET MODAL -->
+    <div class="share-overlay" id="shareOverlay" onclick="if(event.target===this) closeShareSheet()">
+        <div class="share-sheet">
+            <div class="share-handle"></div>
+            <div class="share-title">పంచుకోండి · Share</div>
+            <div class="share-sub">Choose where to share today's devotion</div>
+            <div class="share-grid">
+                <button class="share-item" onclick="shareViaWhatsApp()">
+                    <div class="share-icon wa">💬</div>
+                    <span class="share-label">WhatsApp</span>
+                </button>
+                <button class="share-item" onclick="shareViaTelegram()">
+                    <div class="share-icon tg">✈️</div>
+                    <span class="share-label">Telegram</span>
+                </button>
+                <button class="share-item" onclick="shareViaEmail()">
+                    <div class="share-icon mail">✉️</div>
+                    <span class="share-label">Email</span>
+                </button>
+                <button class="share-item" onclick="shareViaSMS()">
+                    <div class="share-icon sms">📱</div>
+                    <span class="share-label">SMS</span>
+                </button>
+                <button class="share-item" onclick="shareViaCopy()">
+                    <div class="share-icon copy">📋</div>
+                    <span class="share-label">Copy</span>
+                </button>
+                <button class="share-item" onclick="shareViaNative()">
+                    <div class="share-icon more">⋯</div>
+                    <span class="share-label">More</span>
+                </button>
+            </div>
+            <div class="share-preview" id="sharePreview"></div>
+            <div class="share-sig">
+                <img id="shareSigImg" alt="Bro. Naveen" src="data:image/jpeg;base64,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" />
+                <span class="share-sig-label">— Bro. Naveen</span>
+            </div>
+            <button class="share-close" onclick="closeShareSheet()">Close</button>
+        </div>
+    </div>
+
+    <!-- ===== MAIN APP ===== -->
+    <div id="appView" class="app-shell">
+
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="header-row">
+                <div class="brand">
+                    <div class="logo-container" onclick="document.getElementById('logoInput').click()" title="Change Logo">
+                        <img id="logoImg" class="hidden" alt="Logo" />
+                        <span id="defaultLogo" class="default-logo">✝</span>
+                        <input type="file" id="logoInput" class="logo-input" accept="image/*" onchange="changeLogo(event)" />
+                    </div>
+                    <div class="brand-text">
+                        <h1 class="brand-title">అనుదిన ధ్యానం</h1>
+                        <p class="brand-sub">Daily Devotion</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button onclick="toggleEditMode()" id="editToggleBtn" class="hdr-btn" title="Edit (E)">
+                        <span>✏️</span><span id="editLabel">Edit</span>
+                    </button>
+                    <button onclick="goToToday()" class="hdr-btn icon-only" title="Today (T)">📅</button>
+                    <button onclick="toggleDarkMode()" class="hdr-btn icon-only" aria-label="Toggle dark mode" title="Dark mode">
+                        <span id="darkIcon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- DATE NAVIGATION -->
+        <div class="date-nav">
+            <button onclick="prevDay()" class="date-arrow" aria-label="Previous day">←</button>
+            <div class="date-center">
+                <div class="flex items-center gap-2">
+                    <span id="dateDisplay" class="date-display"></span>
+                    <span id="todayBadge" class="today-badge hidden">Today</span>
+                </div>
+                <input type="date" id="datePicker" onchange="jumpToDate(this.value)" />
+            </div>
+            <button onclick="nextDay()" class="date-arrow" aria-label="Next day">→</button>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content-area" id="contentContainer">
+            <!-- Will be rendered by JS -->
+        </div>
+
+        <!-- BACKUP / RESTORE / RESET TOOLBAR -->
+        <div class="toolbar">
+            <span class="toolbar-label">⚙️ Data</span>
+            <div class="toolbar-btns">
+                <button onclick="backupData()" class="tb-btn tb-backup" title="Save a backup file to a chosen location">
+                    <span>💾</span> Backup
+                </button>
+                <button onclick="restoreData()" class="tb-btn tb-restore" title="Restore from a backup file">
+                    <span>♻️</span> Restore
+                </button>
+                <button onclick="resetAll()" class="tb-btn tb-reset" title="Reset to default">
+                    <span>🔄</span> Reset
+                </button>
+            </div>
+        </div>
+        <input type="file" id="cloudFileInput" accept=".json" class="hidden" onchange="importCloud(event)" />
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <p>✝️ Rephidim Fellowship · అనుదిన ధ్యానం</p>
+            <p class="mt-0.5">Bro. Naveen · <span class="footer-mark">Daily Devotion</span></p>
+        </footer>
+    </div>
+
+    <script>
+        // ========================================================================
+        //  PWA SETUP  —  makes the app installable on phones
+        // ========================================================================
+
+        // Draw a crisp PNG icon (rounded square + golden cross + "DEVOTION" label)
+        // so we don't depend on any external image file.
+        function drawIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Rounded-square background
+            const r = size * 0.22;
+            ctx.fillStyle = '#1e1b4b';
+            ctx.beginPath();
+            ctx.moveTo(r, 0);
+            ctx.lineTo(size - r, 0);
+            ctx.quadraticCurveTo(size, 0, size, r);
+            ctx.lineTo(size, size - r);
+            ctx.quadraticCurveTo(size, size, size - r, size);
+            ctx.lineTo(r, size);
+            ctx.quadraticCurveTo(0, size, 0, size - r);
+            ctx.lineTo(0, r);
+            ctx.quadraticCurveTo(0, 0, r, 0);
+            ctx.closePath();
+            ctx.fill();
+
+            // Diagonal accent gradient (indigo tint)
+            const grad = ctx.createLinearGradient(0, 0, size, size);
+            grad.addColorStop(0, 'rgba(99, 102, 241, 0.55)');
+            grad.addColorStop(1, 'rgba(30, 27, 75, 0)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Golden cross (drawn as two rounded rectangles)
+            ctx.fillStyle = '#fbbf24';
+            const barW = size * 0.10;
+            const cx = size / 2;
+            // Vertical bar
+            const vTop = size * 0.16;
+            const vH = size * 0.58;
+            roundRect(ctx, cx - barW / 2, vTop, barW, vH, barW * 0.25);
+            ctx.fill();
+            // Horizontal bar
+            const hLeft = cx - size * 0.24;
+            const hW = size * 0.48;
+            const hY = size * 0.30;
+            roundRect(ctx, hLeft, hY, hW, barW, barW * 0.25);
+            ctx.fill();
+
+            // "DEVOTION" caption
+            ctx.fillStyle = '#c7d2fe';
+            ctx.font = '700 ' + Math.round(size * 0.095) + 'px Inter, system-ui, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('DEVOTION', cx, size * 0.86);
+
+            return canvas.toDataURL('image/png');
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+
+        // Build a real Web App Manifest as a data URI so it works even from a
+        // single HTML file (no separate manifest.json needed).
+        function setupPWA() {
+            const icon192 = drawIcon(192);
+            const icon512 = drawIcon(512);
+            const icon64  = drawIcon(64);
+
+            // Wire up the <link> tags that browsers/OS use
+            document.getElementById('icon192').href = icon192;
+            document.getElementById('appleIcon').href = icon192;
+
+            // Favicon for the browser tab
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.type = 'image/png';
+            favicon.href = icon64;
+            document.head.appendChild(favicon);
+
+            // Manifest (data URI — resolved absolutely)
+            const startUrl = window.location.href.split('?')[0].split('#')[0];
+            const scopeUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) || '/';
+
+            const manifest = {
+                name: 'అనుదిన ధ్యానం - Daily Devotion',
+                short_name: 'అనుదిన ధ్యానం',
+                description: 'Daily Telugu Bible devotion, verse, and prayer.',
+                lang: 'te',
+                dir: 'ltr',
+                start_url: startUrl,
+                scope: scopeUrl,
+                display: 'standalone',
+                display_override: ['standalone', 'minimal-ui'],
+                orientation: 'portrait',
+                background_color: '#1e1b4b',
+                theme_color: '#1e1b4b',
+                categories: ['lifestyle', 'education', 'books'],
+                icons: [
+                    { src: icon192, sizes: '192x192', type: 'image/png', purpose: 'any' },
+                    { src: icon192, sizes: '192x192', type: 'image/png', purpose: 'maskable' },
+                    { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any' },
+                    { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+                ]
+            };
+
+            const manifestData = 'data:application/manifest+json;charset=utf-8,' +
+                encodeURIComponent(JSON.stringify(manifest));
+            document.getElementById('manifestLink').href = manifestData;
+        }
+
+        // Detect if the app is already installed / running standalone
+        function isStandalone() {
+            return window.matchMedia('(display-mode: standalone)').matches ||
+                   window.matchMedia('(display-mode: fullscreen)').matches ||
+                   window.navigator.standalone === true;
+        }
+
+        let deferredInstallPrompt = null;
+
+        function showInstallBanner() {
+            const banner = document.getElementById('installBanner');
+            if (banner && !isStandalone()) banner.classList.add('show');
+        }
+
+        function dismissInstallBanner() {
+            document.getElementById('installBanner').classList.remove('show');
+            // Snooze for 7 days instead of permanently
+            localStorage.setItem('devotion-install-dismissed-at', String(Date.now()));
+        }
+
+        function installDismissedRecently() {
+            const t = localStorage.getItem('devotion-install-dismissed-at');
+            if (!t) return false;
+            return (Date.now() - parseInt(t, 10)) < 7 * 24 * 60 * 60 * 1000;
+        }
+
+        // Chrome / Edge / Samsung Internet: native install prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            if (!isStandalone() && !installDismissedRecently()) {
+                // Small delay so it doesn't flash on first paint
+                setTimeout(showInstallBanner, 1200);
+            }
+        });
+
+        // iOS Safari (and others): no beforeinstallprompt, so show a hint banner
+        window.addEventListener('load', () => {
+            const ua = navigator.userAgent || '';
+            const isIOS = /iPhone|iPad|iPod/i.test(ua);
+            if (isIOS && !isStandalone() && !installDismissedRecently()) {
+                setTimeout(showInstallBanner, 2500);
+            }
+        });
+
+        async function installApp() {
+            // Case 1: Chrome/Edge native prompt available
+            if (deferredInstallPrompt) {
+                deferredInstallPrompt.prompt();
+                try { await deferredInstallPrompt.userChoice; } catch (e) {}
+                deferredInstallPrompt = null;
+                document.getElementById('installBanner').classList.remove('show');
+                return;
+            }
+
+            // Case 2: iOS — walk the user through the manual steps
+            const ua = navigator.userAgent || '';
+            if (/iPhone|iPad|iPod/i.test(ua)) {
+                alert(
+                    '📱 Install "అనుదిన ధ్యానం" on your iPhone / iPad:\n\n' +
+                    '1. Tap the Share button  ( □ with ↑ )\n' +
+                    '2. Scroll down and tap  "Add to Home Screen"\n' +
+                    '3. Tap "Add" in the top-right corner\n\n' +
+                    'The app will then open full-screen like a native app.'
+                );
+                return;
+            }
+
+            // Case 3: Android / other — generic instructions
+            alert(
+                '📱 Install "అనుదిన ధ్యానం":\n\n' +
+                '• Chrome / Edge: tap the ⋮ menu, then "Install app" or "Add to Home screen".\n' +
+                '• Samsung Internet: tap ☰, then "Add page to" → "Home screen".\n\n' +
+                'Tip: open this page over https:// for the install option to appear.'
+            );
+        }
+
+        window.addEventListener('appinstalled', () => {
+            deferredInstallPrompt = null;
+            document.getElementById('installBanner').classList.remove('show');
+            localStorage.removeItem('devotion-install-dismissed-at');
+        });
+
+        // Run PWA setup as early as possible
+        setupPWA();
+
+        // ========================================================================
+        //  DARK MODE
+        // ========================================================================
+
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function applySystemTheme() {
+            if (localStorage.getItem('devotion-dark') === null) {
+                if (prefersDark.matches) {
+                    document.body.classList.add('dark');
+                    document.getElementById("darkIcon").textContent = "☀️";
+                } else {
+                    document.body.classList.remove('dark');
+                    document.getElementById("darkIcon").textContent = "🌙";
+                }
+            }
+        }
+
+        prefersDark.addEventListener('change', () => {
+            if (localStorage.getItem('devotion-dark') === null) {
+                applySystemTheme();
+            }
+        });
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark");
+            const isDark = document.body.classList.contains("dark");
+            localStorage.setItem("devotion-dark", isDark ? "1" : "0");
+            document.getElementById("darkIcon").textContent = isDark ? "☀️" : "🌙";
+        }
+
+        function loadDarkMode() {
+            const saved = localStorage.getItem("devotion-dark");
+            if (saved === "1") {
+                document.body.classList.add("dark");
+                document.getElementById("darkIcon").textContent = "☀️";
+            } else if (saved === "0") {
+                document.body.classList.remove("dark");
+                document.getElementById("darkIcon").textContent = "🌙";
+            } else {
+                applySystemTheme();
+            }
+        }
+
+        // ========================================================================
+        //  LOGO
+        // ========================================================================
+
+        function changeLogo(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const dataUrl = ev.target.result;
+                localStorage.setItem('devotion-logo', dataUrl);
+                applyLogo(dataUrl);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function applyLogo(dataUrl) {
+            const img = document.getElementById('logoImg');
+            const defaultLogo = document.getElementById('defaultLogo');
+            if (dataUrl) {
+                img.src = dataUrl;
+                img.classList.remove('hidden');
+                defaultLogo.classList.add('hidden');
+            } else {
+                img.classList.add('hidden');
+                defaultLogo.classList.remove('hidden');
+            }
+        }
+
+        function loadLogo() {
+            const saved = localStorage.getItem('devotion-logo');
+            if (saved) {
+                applyLogo(saved);
+            }
+        }
+
+        // ========================================================================
+        //  DEVOTION DATA MANAGEMENT
+        // ========================================================================
+
+        const defaultDevotions = [{
+            date: "2026-09-01",
+            verseRef: "కీర్తనలు 119:105",
+            verse: "నీ వాక్యము నా పాదములకు దీపము, నా మార్గమునకు వెలుగు.",
+            title: "దేవుని వాక్యం - మార్గదర్శి",
+            content: "ఈ లోకంలో మనం నడిచే మార్గం చీకటిగా ఉండవచ్చు. కానీ దేవుని వాక్యం మనకు వెలుగు, దీపం. అది మనకు సరైన దారి చూపిస్తుంది. బైబిల్ మన జీవితాల్లో ప్రతి అడుగుకీ మార్గదర్శకం. దేవుని వాక్యాన్ని ధ్యానించినప్పుడు, మన హృదయాలు ప్రకాశిస్తాయి. నేడు మీ జీవితంలో దేవుని వాక్యం మీకు దారి చూపనివ్వండి.",
+            prayer: "ప్రియ తండ్రీ, నీ వాక్యం నాకు దీపమని నేను కృతజ్ఞతతో ఉన్నాను. నా జీవితంలో ప్రతి అడుగుకీ నీ వాక్యం వెలుగు నివ్వాలని ప్రార్థిస్తున్నాను. నీ మాటలు నా హృదయంలో నాటుకోనివ్వు. ఆమేన్."
+        }, {
+            date: "2026-09-02",
+            verseRef: "యెషయా 41:10",
+            verse: "భయపడకుము, నేను నీకు తోడుగా ఉన్నాను; విస్మయపడకుము, నేను నీ దేవుడను. నేను నిన్ను బలపరతాను, నేను నీకు సహాయము చేస్తాను.",
+            title: "భయం లేదు - దేవుడు తోడు",
+            content: "జీవితంలో మనం ఎన్నో సవాళ్ళు, భయాలు ఎదుర్కొంటాము. కానీ దేవుడు మనకు తోడుగా ఉంటాడని మనకు వాగ్దానం. ఆయన మనలను బలపరుస్తాడు, సహాయం చేస్తాడు. నీవు ఒంటరివి కావు. నీ భయాలను దేవుని ముందు ఉంచు, ఆయన నీకు శాంతిని ఇస్తాడు. ఈ రోజు నీ భయాలను దేవుని కృపకు అప్పగించు.",
+            prayer: "ప్రభూ, నీవు నాకు తోడుగా ఉన్నావని నేను విశ్వసిస్తున్నాను. నా భయాలను, ఆందోళనలను నీ ముందు ఉంచుతున్నాను. నాకు బలం, ధైర్యం ఇవ్వు. నీ సమక్షంలో నేను భయపడను. ఆమేన్."
+        }, {
+            date: "2026-09-03",
+            verseRef: "ఫిలిప్పీయులకు 4:13",
+            verse: "నన్ను బలపరచు క్రీస్తు ద్వారా నేను సమస్తము చేయగలను.",
+            title: "క్రీస్తులో బలం",
+            content: "మన స్వంత బలంతో మనం చాలా పనులు చేయలేము. కానీ క్రీస్తు మనకు బలం ఇస్తాడు. ఆయన ద్వారా మనం సమస్తమూ చేయగలము. నీ బలహీనతలను గుర్తించి, క్రీస్తు బలం కోసం ఆశించు. ఆయన నీ బలహీనతలో పరిపూర్ణుడు. నేడు నీ బలహీనతలను క్రీస్తు బలంగా మార్చనివ్వు.",
+            prayer: "యేసూ, నేను బలహీనుడనని అంగీకరిస్తున్నాను. నీ బలం నాలో పరిపూర్ణం కావాలని కోరుతున్నాను. నా బలహీనతలను నీ బలంగా మార్చు. నీవు నాకు సమస్తం. ఆమేన్."
+        }, {
+            date: "2026-09-04",
+            verseRef: "రోమీయులకు 8:28",
+            verse: "దేవుడు తన ప్రియులకొరకు సమస్తమును కలిపి మేలు చేయునని మనకు తెలుసు.",
+            title: "సమస్తం మేలుకే",
+            content: "జీవితంలో కష్టాలు, సమస్యలు వచ్చినప్పుడు, దేవుడు వాటిని మన మేలుకోసం ఉపయోగిస్తాడు. ఆయన సమస్తమును కలిపి మేలు చేస్తాడు. ఇది మనకు ఒక వాగ్దానం. మీ జీవితంలో జరుగుతున్న ప్రతి దానిని దేవుడు మీ మంచి కోసం ఉపయోగిస్తున్నాడని నమ్మండి. ఆయనకు సమయం ఇవ్వండి.",
+            prayer: "దేవా, నా జీవితంలోని ప్రతి పరిస్థితిని నా మేలుకోసం ఉపయోగిస్తున్నావని నేను నమ్ముతున్నాను. కష్టాల్లో కూడా నీ కృపను చూడడానికి నాకు సహాయం చెయ్యి. ఆమేన్."
+        }, {
+            date: "2026-09-05",
+            verseRef: "మత్తయి 11:28",
+            verse: "అలసిపోయినవారలారా, భారముగలవారలారా, నా యొద్దకు రండి; నేను మీకు విశ్రాంతి కలుగజేస్తాను.",
+            title: "విశ్రాంతి ఆహ్వానం",
+            content: "జీవితపు భారాలు, అలసటలతో మనం అలసిపోతాం. కానీ యేసు మనలను ఆహ్వానిస్తున్నాడు - ఆయన దగ్గరకు రండి, విశ్రాంతి పొందండి. ఆయన మన భారాలను తీసుకుంటాడు. నేడు నీ భారాలను, అలసటను యేసు పాదాల వద్ద ఉంచు. ఆయన నీకు నిజమైన విశ్రాంతి ఇస్తాడు.",
+            prayer: "ప్రియ యేసూ, నా భారాలను, అలసటను నీ పాదాల వద్ద ఉంచుతున్నాను. నాకు విశ్రాంతి ఇవ్వు. నీ సమక్షంలో నా ఆత్మ ప్రశాంతి పొందాలని ప్రార్థిస్తున్నాను. ఆమేన్."
+        }, {
+            date: "2026-09-06",
+            verseRef: "2 కొరింథీయులకు 5:17",
+            verse: "కావున ఎవడైనను క్రీస్తులో ఉన్నాడా, వాడు క్రొత్త సృష్టి; పాతవి గతించిపోయెను, ఇదిగో సమస్తమును క్రొత్తగా అయినవి.",
+            title: "క్రొత్త సృష్టి",
+            content: "క్రీస్తులో ఉండటం అంటే క్రొత్త జీవితాన్ని పొందడం. పాతవి పోయాయి, సమస్తం క్రొత్తగా మారింది. మీ గతం ఏమైనా, క్రీస్తులో మీరు క్రొత్త సృష్టి. నేడు మీ పాత జీవితాన్ని వదిలి, క్రీస్తులో క్రొత్త జీవితాన్ని ఆలింగనం చేసుకోండి.",
+            prayer: "ప్రభూ, నేను క్రీస్తులో క్రొత్త సృష్టిని. నా పాత జీవితం పోయింది, క్రొత్తది వచ్చింది. నా జీవితంలో క్రొత్త మార్పులను తీసుకురావాలని ప్రార్థిస్తున్నాను. ఆమేన్."
+        }, {
+            date: "2026-09-07",
+            verseRef: "కీర్తనలు 23:1",
+            verse: "యెహోవా నా కాపరి, నాకు ఏమియు లోటు లేదు.",
+            title: "యెహోవా నా కాపరి",
+            content: "దేవుడు మన కాపరి. ఆయన మనలను నడిపిస్తాడు, కాపాడుతాడు, పోషిస్తాడు. ఆయన ఉన్నప్పుడు మనకు ఏమీ లోటు లేదు. ఆయన మన అవసరాలను తెలుసు, మన కోసం ఆయన ఏర్పాటు చేస్తాడు. ఈ రోజు నీ కాపరి యెహోవాను నమ్ము.",
+            prayer: "ప్రియ కాపరీ, నా జీవితంలో నీవు నన్ను నడిపిస్తున్నావు. నాకు ఏమీ లోటు లేదు. నీ కృప, నీ ప్రేమ నన్ను అనుసరిస్తాయి. నీకు కృతజ్ఞత. ఆమేన్."
+        }, {
+            date: "2026-09-08",
+            verseRef: "యెహోషువ 1:9",
+            verse: "నేను నీకు ఆజ్ఞాపించినది ఏమనగా, ధైర్యముగా ఉండుము, దృఢముగా ఉండుము; భయపడకుము, భ్రమింపకుము; నీవు ఎక్కడికి పోయినను నీ దేవుడైన యెహోవా నీకు తోడుగా ఉండును.",
+            title: "ధైర్యం, దృఢత్వం",
+            content: "దేవుడు మనకు ధైర్యం, దృఢత్వం ఇస్తాడు. ఆయన మనకు తోడుగా ఉంటాడు. భయపడవద్దు, భ్రమించవద్దు. నీవు ఎక్కడికి పోయినా, దేవుడు నీకు తోడుగా ఉంటాడు. ఈ వాగ్దానం నీ హృదయంలో నిలుపుకో.",
+            prayer: "దేవా, నీవు నాకు తోడుగా ఉన్నావు. నాకు ధైర్యం, దృఢత్వం ఇవ్వు. నేను భయపడను, భ్రమించను. నీ సమక్షంలో నేను బలంగా ఉంటాను. ఆమేన్."
+        }, {
+            date: "2026-09-09",
+            verseRef: "సామెతలు 3:5-6",
+            verse: "పూర్ణహృదయముతో యెహోవాను నమ్ముము, నీ స్వంత వివేకముపై ఆధారపడకుము. నీవు పోవు సమస్త మార్గములలో ఆయనను గుర్తించుము, అప్పుడు ఆయన నీ త్రోవలను సరాళము చేయును.",
+            title: "పూర్ణ హృదయముతో నమ్ముము",
+            content: "దేవుని పూర్ణ హృదయముతో నమ్మాలి. మన స్వంత వివేకం మనలను తప్పుదారి పట్టించవచ్చు. కానీ దేవుడు మన త్రోవలను సరాళం చేస్తాడు. ఆయనను గుర్తించు, ఆయనే నీకు మార్గం చూపిస్తాడు.",
+            prayer: "తండ్రీ, నిన్ను పూర్ణ హృదయముతో నమ్ముతున్నాను. నా వివేకం కంటే నీ మార్గం మేలైనది. నా త్రోవలను సరాళం చేయి. నీవు నాకు దారి చూపించు. ఆమేన్."
+        }, {
+            date: "2026-09-10",
+            verseRef: "మార్కు 11:24",
+            verse: "కావున మీరు ప్రార్థన చేయునప్పుడు, మీకు కావలసినది ఏదైనను, మీరు అది పొందితిరని నమ్ముడి, అది మీకు కలుగును.",
+            title: "విశ్వాసంతో ప్రార్థన",
+            content: "ప్రార్థనలో మనం కోరినవి పొందితిమని నమ్మాలి. విశ్వాసం లేని ప్రార్థనలు ఫలించవు. దేవుడు మన ప్రార్థనలు వింటాడు, ఆయన సమయంలో సమాధానం ఇస్తాడు. నేడు విశ్వాసంతో ప్రార్థించు.",
+            prayer: "ప్రభూ, నీవు నా ప్రార్థనలు వింటావని నమ్ముతున్నాను. నీ సమయంలో నాకు సమాధానం ఇవ్వి. నా విశ్వాసాన్ని బలపరచు. ఆమేన్."
+        }, {
+            date: "2026-09-11",
+            verseRef: "యోహాను 14:6",
+            verse: "యేసు అతనితో, నేను మార్గమును, సత్యమును, జీవమును; నా ద్వారా తప్ప ఎవడును తండ్రియొద్దకు రాడు.",
+            title: "మార్గం, సత్యం, జీవం",
+            content: "యేసు మార్గం, సత్యం, జీవం. ఆయన ద్వారా మాత్రమే మనం తండ్రి దగ్గరకు వెళ్ళగలం. ఇతర మార్గాలు లేవు. యేసు మనకు నిజమైన జీవాన్ని ఇస్తాడు. నేడు యేసు మీ జీవితంలో మార్గం, సత్యం, జీవంగా ఉండనివ్వండి.",
+            prayer: "యేసూ, నీవు మార్గం, సత్యం, జీవం. నీ ద్వారానే నేను తండ్రి దగ్గరకు వెళ్తాను. నా జీవితంలో నీకు మార్గం ఇవ్వు. ఆమేన్."
+        }, {
+            date: "2026-09-12",
+            verseRef: "1 పేతురు 5:7",
+            verse: "ఆయన మీకు విచారము కలిగించునవన్నిటిని ఆయనయొద్ద వేయుడి, ఏలయనగా ఆయన మీయెడల శ్రద్ధ కలిగియున్నాడు.",
+            title: "దేవుని శ్రద్ధ",
+            content: "దేవుడు మనయెడల శ్రద్ధ కలిగి ఉన్నాడు. మన విచారాలను, భారాలను ఆయనయొద్ద వేయవచ్చు. ఆయన మన పట్ల ప్రేమతో, శ్రద్ధతో ఉన్నాడు. నీ భారాలను దేవుని మీద వేయి, ఆయన నిన్ను ఆదుకుంటాడు.",
+            prayer: "ప్రియ తండ్రీ, నా విచారాలన్నీ నీ యొద్ద ఉంచుతున్నాను. నాయెడల నీకు శ్రద్ధ ఉందని నేను నమ్ముతున్నాను. నా భారాలను మోయి. ఆమేన్."
+        }, {
+            date: "2026-09-13",
+            verseRef: "యిర్మీయా 29:11",
+            verse: "నేను మీకొరకు వేచియున్న కల్పనలను ఎరుగుదును, అవి శాంతికరములు, కీడు కలిగించునవి కావు; మీకు భవిష్యత్తు, నిరీక్షణ ఇవ్వనైయున్నాను.",
+            title: "మంచి ప్రణాళిక",
+            content: "దేవునికి మనపై మంచి ప్రణాళిక ఉంది. అది శాంతికరమైనది, భవిష్యత్తు, నిరీక్షణ ఇచ్చేది. మన జీవితంలో ఎన్ని సవాళ్ళు వచ్చినా, దేవుని ప్రణాళిక మంచిది. ఆయనను నమ్ము, ఆయన నీకు భవిష్యత్తును ఇస్తాడు.",
+            prayer: "దేవా, నాపై నీకు మంచి ప్రణాళిక ఉందని నేను నమ్ముతున్నాను. నా భవిష్యత్తు నీ చేతుల్లో ఉంది. నాకు శాంతి, నిరీక్షణ ఇవ్వి. ఆమేన్."
+        }, {
+            date: "2026-09-14",
+            verseRef: "యోహాను 3:16",
+            verse: "దేవుడు లోకమును ఎంతగా ప్రేమించెననగా, తన ఏకైక కుమారుని ఇచ్చెను; ఆయనయందు విశ్వాసముంచు ప్రతివాడు నశించక నిత్యజీవము పొందును.",
+            title: "దేవుని ప్రేమ",
+            content: "దేవుడు లోకాన్ని ఎంతగా ప్రేమించాడో! తన ఏకైక కుమారుని మన కోసం ఇచ్చాడు. ఆయనను విశ్వసించిన ప్రతివాడు నిత్యజీవము పొందుతాడు. ఇది మహా ప్రేమ. నేడు ఈ ప్రేమను ఆలింగనం చేసుకో.",
+            prayer: "ప్రియ దేవా, నీవు నన్ను ఎంతగా ప్రేమించావో! నీ కుమారుని నా కోసం ఇచ్చినందుకు కృతజ్ఞత. ఆయనయందు నా విశ్వాసం ఉంది. ఆమేన్."
+        }, {
+            date: "2026-09-15",
+            verseRef: "మత్తయి 6:33",
+            verse: "మొదట ఆయన రాజ్యమును, ఆయన నీతిని అన్వేషించుడి, అప్పుడు ఇవన్నియు మీకు అదనముగా ఇవ్వబడును.",
+            title: "మొదట దేవుని రాజ్యం",
+            content: "మన జీవితంలో మొదటిగా దేవుని రాజ్యం, నీతిని అన్వేషించాలి. అప్పుడు మనకు కావలసినవన్నీ ఆయన ఇస్తాడు. మన ప్రాధాన్యాలు దేవుని కేంద్రంగా ఉంచినప్పుడు, ఆయన మన అవసరాలు తీరుస్తాడు.",
+            prayer: "ప్రభూ, నా జీవితంలో మొదట నీ రాజ్యాన్ని, నీ నీతిని అన్వేషిస్తాను. నా అవసరాలన్నీ నీవు తీరుస్తావని నమ్ముతున్నాను. ఆమేన్."
+        }, {
+            date: "2026-09-16",
+            verseRef: "కీర్తనలు 46:10",
+            verse: "నిలిచియుండుడి, నేను దేవుడనని తెలిసికొనుడి.",
+            title: "నిలిచియుండు - దేవుడు వాడు",
+            content: "మన అలజడి మధ్య, దేవుడు మనలను నిలిచియుండమని ఆహ్వానిస్తాడు. ఆయన దేవుడని తెలిసికొనుము. మన పోరాటాలను ఆయనకు వదిలివేయి, ఆయనే దేవుడు. ఆయన సమక్షంలో ప్రశాంతతను పొందు.",
+            prayer: "దేవా, నీ సమక్షంలో నిలిచియుండడం నేర్పించు. నీవు దేవుడవని నేను తెలిసికొంటున్నాను. నా అలజడిని శాంతిగా మార్చు. ఆమేన్."
+        }, {
+            date: "2026-09-17",
+            verseRef: "రోమీయులకు 12:12",
+            verse: "నిరీక్షణలో సంతోషించుడి, శ్రమలో సహించుడి, ప్రార్థనలో తాలిమిగలవారై యుండుడి.",
+            title: "సంతోషం, సహనం, తాలిమి",
+            content: "నిరీక్షణలో సంతోషించు, శ్రమలో సహించు, ప్రార్థనలో తాలిమిగలవాడుగా ఉండు. ఇవి క్రైస్తవ జీవితంలో ముఖ్యమైన లక్షణాలు. నీ నిరీక్షణ దేవునిలో ఉంచు, శ్రమలను సహించు, ప్రార్థన చేయు.",
+            prayer: "ప్రభూ, నీ నిరీక్షణలో సంతోషించడానికి, శ్రమలో సహించడానికి, ప్రార్థనలో తాలిమిగా ఉండడానికి నాకు సహాయం చెయ్యి. ఆమేన్."
+        }, {
+            date: "2026-09-18",
+            verseRef: "2 తిమోతికి 1:7",
+            verse: "దేవుడు మనకు భయము యొక్క ఆత్మను కాక, బలము, ప్రేమ, స్వస్థబుద్ధి యొక్క ఆత్మను ఇచ్చియున్నాడు.",
+            title: "బలం, ప్రేమ, స్వస్థబుద్ధి",
+            content: "దేవుడు మనకు భయము యొక్క ఆత్మను ఇవ్వలేదు. ఆయన మనకు బలం, ప్రేమ, స్వస్థబుద్ధి యొక్క ఆత్మను ఇచ్చాడు. నీ భయాలను వదిలి, దేవుడు ఇచ్చిన బలం, ప్రేమ, స్వస్థబుద్ధితో నడువు.",
+            prayer: "ప్రభూ, నీవు నాకు భయముకాక, బలం, ప్రేమ, స్వస్థబుద్ధి ఇచ్చావు. నీ ఈ ఆత్మ నాలో పనిచేయనివ్వు. ఆమేన్."
+        }, {
+            date: "2026-09-19",
+            verseRef: "యెషయా 43:2",
+            verse: "నీవు నీళ్లలో నుండి పోవునప్పుడు నేను నీకు తోడుగా ఉందును; నీవు నదులలో నుండి వెళ్లునప్పుడు అవి నిన్ను ముంచివేయవు; నీవు అగ్నిలో నడచునప్పుడు నీవు కాలిపోవు, మంటలు నిన్ను కాల్చవు.",
+            title: "దేవుని సన్నిధి",
+            content: "జీవితంలో కష్టాలు వచ్చినప్పుడు, దేవుడు మనకు తోడుగా ఉంటాడు. నీళ్ళలో, నదులలో, అగ్నిలో కూడా ఆయన మనతో ఉంటాడు. ఆయన మనలను కాపాడుతాడు. నేడు నీ పరీక్షల మధ్య దేవుని సన్నిధిని అనుభవించు.",
+            prayer: "దేవా, నా కష్టాల మధ్య నీవు నాకు తోడుగా ఉన్నావు. నీ సన్నిధి నన్ను కాపాడుతుంది. నా పరీక్షలలో నేను నిన్ను అనుభవిస్తాను. ఆమేన్."
+        }, {
+            date: "2026-09-20",
+            verseRef: "ఫిలిప్పీయులకు 4:6-7",
+            verse: "ఏ విషయమును గూర్చి చింతించకుడి; సమస్త విషయములలోనూ కృతజ్ఞతతో మీ కోరికలు దేవునికి తెలియజేయుడి. అప్పుడు దేవుని సమాధానము మీ హృదయాలను, మనస్సులను కాపాడును.",
+            title: "సమాధానం నిధి",
+            content: "చింతను వదిలి, సమస్త విషయాలను దేవునికి తెలియజేయి. కృతజ్ఞతతో ప్రార్థించు. అప్పుడు దేవుని సమాధానం నీ హృదయాన్ని కాపాడుతుంది. ఈ సమాధానం అర్థంచేయలేనిది, కానీ నిజమైనది.",
+            prayer: "ప్రభూ, నా చింతలన్నీ నీ ముందు ఉంచుతున్నాను. నీ సమాధానం నా హృదయాన్ని కాపాడాలని ప్రార్థిస్తున్నాను. నీకు కృతజ్ఞత. ఆమేన్."
+        }, {
+            date: "2026-09-21",
+            verseRef: "హెబ్రీయులకు 13:5",
+            verse: "నేను నిన్ను విడువను, నిన్ను వదలివేయను.",
+            title: "ఎన్నటికీ విడువను",
+            content: "దేవుడు మనలను ఎన్నటికీ విడవడు, వదలివేయడు. ఇది మనకు వాగ్దానం. మనం ఎంత తప్పిపోయినా, ఆయన మనతోనే ఉంటాడు. ఆయన విశ్వసనీయుడు. నేడు ఈ వాగ్దానంలో విశ్రాంతి పొందు.",
+            prayer: "ప్రియ తండ్రీ, నీవు నన్ను ఎన్నటికీ విడవవని నాకు వాగ్దానం చేసావు. నీ విశ్వసనీయతకు కృతజ్ఞత. నీ సన్నిధిలో నేను సురక్షితంగా ఉన్నాను. ఆమేన్."
+        }, {
+            date: "2026-09-22",
+            verseRef: "యాకోబు 1:5",
+            verse: "మీలో ఎవనికైనను జ్ఞానము లేనియెడల, అతడు దేవుని అడుగవలెను; ఆయన ఎవరిని గద్దించక, సమస్తులకు దయగా ఇచ్చును; అతనికి అది ఇవ్వబడును.",
+            title: "జ్ఞానం కోసం అడుగు",
+            content: "జ్ఞానం లేనప్పుడు, దేవుని అడుగు. ఆయన గద్దించక, దయగా ఇస్తాడు. నీ జీవితంలో జ్ఞానం కోసం దేవుని వైపు చూడు. ఆయన నీకు సమృద్ధిగా ఇస్తాడు.",
+            prayer: "దేవా, నాకు జ్ఞానం లేదు. నీయొద్ద జ్ఞానం కోరుతున్నాను. నీవు దయగా ఇస్తావని నమ్ముతున్నాను. ఆమేన్."
+        }, {
+            date: "2026-09-23",
+            verseRef: "మత్తయి 5:16",
+            verse: "మీ వెలుగు మనుష్యుల యెదుట ప్రకాశించనియ్యుడి, వారు మీ మంచి క్రియలు చూచి, పరలోకమందున్న మీ తండ్రిని మహిమపరచుదురు.",
+            title: "వెలుగుగా ఉండుము",
+            content: "మీ వెలుగు మనుష్యుల యెదుట ప్రకాశించనియ్యి. మీ మంచి క్రియల ద్వారా ప్రజలు దేవుణ్ణి మహిమపరచాలి. నీ జీవితం దేవుని ప్రేమను, కృపను ప్రతిబింబించనివ్వు.",
+            prayer: "ప్రభూ, నా జీవితం ద్వారా నీ వెలుగు ప్రకాశించనివ్వు. నా మంచి క్రియలు నీకు మహిమ తీసుకురావాలని ప్రార్థిస్తున్నాను. ఆమేన్."
+        }, {
+            date: "2026-09-24",
+            verseRef: "కీర్తనలు 27:1",
+            verse: "యెహోవా నా వెలుగు, నా రక్షణ; నేను ఎవరికి భయపడను?",
+            title: "యెహోవా నా వెలుగు",
+            content: "యెహోవా నా వెలుగు, నా రక్షణ. ఆయన ఉన్నప్పుడు నేను ఎవరికి భయపడను? ఆయన నా చీకటిని వెలిగిస్తాడు, నా శత్రువుల నుండి కాపాడతాడు. నీ భయాలను ఆయనకు అప్పగించు.",
+            prayer: "యెహోవా, నీవు నా వెలుగు, నా రక్షణ. నేను భయపడను. నా జీవితంలో నీ వెలుగు ప్రకాశించాలని ప్రార్థిస్తున్నాను. ఆమేన్."
+        }, {
+            date: "2026-09-25",
+            verseRef: "1 యోహాను 4:8",
+            verse: "దేవుడు ప్రేమ; ప్రేమలో నిలుచువాడు దేవునిలో నిలుచును, దేవుడు అతనిలో నిలుచును.",
+            title: "దేవుడు ప్రేమ",
+            content: "దేవుడు ప్రేమ. ఆయనలో ప్రేమ ఉంది, ఆయన ప్రేమే. ప్రేమలో నిలిచిన వాడు దేవునిలో నిలుస్తాడు. నీ ప్రేమ దేవుని ప్రేమను ప్రతిబింబించనివ్వు. ఆయన ప్రేమ నీ ద్వారా ఇతరులకు చేరనివ్వు.",
+            prayer: "ప్రేమ స్వరూపుడైన దేవా, నీ ప్రేమ నాలో నిండుగా ఉండాలని ప్రార్థిస్తున్నాను. నేను ప్రేమలో నిలుచును, నీవు నాలో నిలుచు. ఆమేన్."
+        }, {
+            date: "2026-09-26",
+            verseRef: "మీకా 6:8",
+            verse: "న్యాయమును చేయుట, దయను ప్రేమించుట, వినయముగా దేవునితో నడుచుకొనుట కంటె యెహోవా నీవలన కోరునది వేరే ఉన్నదా?",
+            title: "న్యాయం, దయ, వినయం",
+            content: "దేవుడు మనలను కోరేది న్యాయం చేయడం, దయను ప్రేమించడం, వినయముగా ఆయనతో నడుచుకోవడం. ఇది క్రైస్తవ జీవితానికి సారాంశం. నేడు ఈ మూడు లక్షణాలను అభ్యసించు.",
+            prayer: "ప్రభూ, న్యాయం చేయడానికి, దయను ప్రేమించడానికి, వినయముగా నీతో నడుచుకోవడానికి నాకు సహాయం చెయ్యి. ఆమేన్."
+        }, {
+            date: "2026-09-27",
+            verseRef: "కీర్తనలు 34:8",
+            verse: "యెహోవా ఎంతో మంచివాడని రుచి చూచి చూడుడి; ఆయనయందు ఆశ్రయము పొందు మనుష్యుడు ధన్యుడు.",
+            title: "యెహోవా మంచితనం",
+            content: "యెహోవా ఎంతో మంచివాడు. రుచి చూచి చూడు, ఆయన మంచితనాన్ని అనుభవించు. ఆయనయందు ఆశ్రయం పొందినవాడు ధన్యుడు. నేడు దేవుని మంచితనాన్ని అనుభవించు, ఆయనయందు నీ ఆశ్రయం ఉంచు.",
+            prayer: "మంచితనం గల దేవా, నీ మంచితనాన్ని నేను అనుభవిస్తున్నాను. నీయందు నా ఆశ్రయం ఉంది. నన్ను ధన్యునిగా చేయి. ఆమేన్."
+        }, {
+            date: "2026-09-28",
+            verseRef: "2 కొరింథీయులకు 9:7",
+            verse: "ప్రతివాడు తన హృదయంలో నిశ్చయించుకొన్నట్లు ఇవ్వవలెను; మనస్సు విచారముతో కాని, బలవంతముతో కాని ఇవ్వవద్దు; ఏలయనగా సంతోషముగా ఇచ్చువానిని దేవుడు ప్రేమించును.",
+            title: "సంతోషంగా ఇవ్వుము",
+            content: "దేవుడు సంతోషముగా ఇచ్చువానిని ప్రేమిస్తాడు. ఇవ్వడం బలవంతంగా కాక, హృదయపూర్వకంగా ఉండాలి. నీ దగ్గర ఉన్నదాన్ని సంతోషముగా పంచు. అప్పుడు దేవుడు నిన్ను ప్రేమిస్తాడు.",
+            prayer: "ప్రభూ, నా దగ్గర ఉన్నదాన్ని సంతోషముగా ఇవ్వడానికి నాకు సహాయం చెయ్యి. నా ఇవ్వడం నీకు ప్రీతికరంగా ఉండాలని ప్రార్థిస్తున్నాను. ఆమేన్."
+        }, {
+            date: "2026-09-29",
+            verseRef: "కీర్తనలు 121:1-2",
+            verse: "నేను కొండలవైపు కన్నులెత్తి చూచుచున్నాను; నా సహాయము ఎక్కడనుండి వచ్చును? నా సహాయము ఆకాశమును, భూమిని చేసిన యెహోవా వలన వచ్చును.",
+            title: "సహాయం యెహోవా వలన",
+            content: "నా సహాయం ఎక్కడనుండి వస్తుంది? నా సహాయం ఆకాశాన్ని, భూమిని చేసిన యెహోవా వలన వస్తుంది. ఆయన సర్వశక్తిమంతుడు, ఆయనే నా సహాయం. నీ సహాయాన్ని దేవుని వైపు చూడు.",
+            prayer: "సర్వశక్తిమంతుడైన దేవా, నా సహాయం నీవలన వస్తుంది. నా కన్నులు నీ వైపు ఉండాలని ప్రార్థిస్తున్నాను. నాకు సహాయం చేయి. ఆమేన్."
+        }, {
+            date: "2026-09-30",
+            verseRef: "రోమీయులకు 15:13",
+            verse: "నిరీక్షణకు కారణభూతుడైన దేవుడు విశ్వాసమువలన కలుగు సమస్త సంతోషముతోను, శాంతితోను మిమ్మును నింపును.",
+            title: "సంతోషం, శాంతి, నిరీక్షణ",
+            content: "నిరీక్షణకు కారణభూతుడైన దేవుడు మనలను సంతోషంతో, శాంతితో నింపుతాడు. విశ్వాసం ద్వారా ఈ నింపడం జరుగుతుంది. నీ హృదయం సంతోషం, శాంతి, నిరీక్షణతో నిండనివ్వు.",
+            prayer: "దేవా, నా హృదయాన్ని సంతోషం, శాంతి, నిరీక్షణతో నింపు. నీ విశ్వాసం నాలో పనిచేయనివ్వు. ఆమేన్."
+        }, {
+            date: "2026-10-01",
+            verseRef: "ప్రకటన 21:4",
+            verse: "దేవుడు వారి కన్నుల నుండి ప్రతి కన్నీటిని తుడిచివేయును; ఇక మరణము ఉండదు; దుఃఖమైనను, ఏడ్పైనను, శ్రమైనను ఉండవు.",
+            title: "కన్నీరు లేని రోజు",
+            content: "ఒక రోజు దేవుడు మన కన్నీళ్ళన్నీ తుడిచివేస్తాడు. అప్పుడు మరణం, దుఃఖం, ఏడ్పు, శ్రమ ఉండవు. ఇది మన కొరకు వేచి ఉన్న గొప్ప నిరీక్షణ. ఈ వాగ్దానాన్ని హృదయంలో ఉంచుకో, ఎందుకంటే అది తప్పక నెరవేరుతుంది.",
+            prayer: "ప్రభూ, ఒక రోజు నీవు నా కన్నీళ్ళన్నీ తుడిచివేస్తావని నేను నమ్ముతున్నాను. ఆ రోజు కొరకు నేను వేచి ఉన్నాను. నీ వాగ్దానం మీద నా నిరీక్షణ ఉంది. ఆమేన్."
+        }];
+
+        // Build default map
+        const defaultMap = {};
+        defaultDevotions.forEach(d => { defaultMap[d.date] = d; });
+
+        // Our working map (loaded from localStorage or default)
+        let devotionMap = {};
+
+        // Load from localStorage
+        function loadDevotions() {
+            const saved = localStorage.getItem('devotion-data');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    devotionMap = { ...defaultMap, ...parsed };
+                    Object.keys(defaultMap).forEach(date => {
+                        if (!devotionMap[date]) {
+                            devotionMap[date] = defaultMap[date];
+                        }
+                    });
+                    return;
+                } catch (e) {}
+            }
+            devotionMap = { ...defaultMap };
+            saveDevotions();
+        }
+
+        function saveDevotions() {
+            localStorage.setItem('devotion-data', JSON.stringify(devotionMap));
+        }
+
+        // Reset to default
+        function resetAll() {
+            if (confirm('Reset all devotions to default? This will remove all your edits.')) {
+                devotionMap = { ...defaultMap };
+                saveDevotions();
+                render();
+                alert('✅ Reset to default devotions.');
+            }
+        }
+
+        // ========================================================================
+        //  EDIT MODE
+        // ========================================================================
+
+        let editMode = false;
+        let pendingEdits = {};
+
+        function toggleEditMode() {
+            editMode = !editMode;
+            document.getElementById('editLabel').textContent = editMode ? 'Save' : 'Edit';
+            if (editMode) {
+                render();
+            } else {
+                saveAllEdits();
+                render();
+            }
+        }
+
+        function saveAllEdits() {
+            const dateKey = formatDateKey(currentDate);
+            const devotion = devotionMap[dateKey];
+            if (!devotion) return;
+
+            const verseInput = document.getElementById('edit-verse');
+            const verseRefInput = document.getElementById('edit-verseRef');
+            const titleInput = document.getElementById('edit-title');
+            const contentInput = document.getElementById('edit-content');
+            const prayerInput = document.getElementById('edit-prayer');
+
+            if (verseInput) devotion.verse = verseInput.value;
+            if (verseRefInput) devotion.verseRef = verseRefInput.value;
+            if (titleInput) devotion.title = titleInput.value;
+            if (contentInput) devotion.content = contentInput.value;
+            if (prayerInput) devotion.prayer = prayerInput.value;
+
+            devotionMap[dateKey] = devotion;
+            saveDevotions();
+        }
+
+        // ========================================================================
+        //  BACKUP / RESTORE
+        // ========================================================================
+
+        // Backup: save all devotion data to a JSON file at a user-chosen location
+        async function backupData() {
+            const data = JSON.stringify(devotionMap, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const suggestedName = 'anudina_dhyanam_backup_' + formatDateKey(new Date()) + '.json';
+
+            // Preferred: File System Access API — asks user where to save
+            if (window.showSaveFilePicker) {
+                try {
+                    const handle = await window.showSaveFilePicker({
+                        suggestedName: suggestedName,
+                        types: [{
+                            description: 'JSON Backup',
+                            accept: { 'application/json': ['.json'] }
+                        }]
+                    });
+                    const writable = await handle.createWritable();
+                    await writable.write(blob);
+                    await writable.close();
+                    showToast('✅ Backup saved successfully!');
+                    return;
+                } catch (err) {
+                    if (err && err.name === 'AbortError') return; // user cancelled
+                    // Fall through to download fallback
+                }
+            }
+
+            // Fallback: standard browser download
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = suggestedName;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+            showToast('✅ Backup downloaded.');
+        }
+
+        // Restore: load devotion data from a user-chosen JSON file
+        async function restoreData() {
+            if (window.showOpenFilePicker) {
+                try {
+                    const [handle] = await window.showOpenFilePicker({
+                        types: [{
+                            description: 'JSON Backup',
+                            accept: { 'application/json': ['.json'] }
+                        }],
+                        multiple: false
+                    });
+                    const file = await handle.getFile();
+                    await readRestoreFile(file);
+                    return;
+                } catch (err) {
+                    if (err && err.name === 'AbortError') return; // user cancelled
+                }
+            }
+
+            // Fallback: hidden file input
+            document.getElementById('cloudFileInput').click();
+        }
+
+        function readRestoreFile(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (!data || typeof data !== 'object') {
+                            throw new Error('Invalid format');
+                        }
+                        devotionMap = { ...defaultMap, ...data };
+                        saveDevotions();
+                        render();
+                        showToast('✅ Restore successful!');
+                    } catch (err) {
+                        alert('❌ Invalid backup file format.');
+                    }
+                    resolve();
+                };
+                reader.readAsText(file);
+            });
+        }
+
+        // Fallback handler for hidden file input
+        function importCloud(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            readRestoreFile(file);
+            event.target.value = '';
+        }
+
+        // Lightweight toast notification
+        let toastTimer = null;
+        function showToast(msg) {
+            let t = document.getElementById('toastBox');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'toastBox';
+                t.style.cssText = 'position:fixed;left:50%;bottom:90px;transform:translateX(-50%);' +
+                    'background:#1e1b4b;color:#f8fafc;padding:12px 22px;border-radius:12px;' +
+                    'font-size:13px;font-weight:700;z-index:20000;box-shadow:0 8px 24px rgba(0,0,0,0.3);' +
+                    'border:1px solid #fbbf24;opacity:0;transition:opacity 0.25s,bottom 0.25s;pointer-events:none;';
+                document.body.appendChild(t);
+            }
+            t.textContent = msg;
+            t.style.opacity = '1';
+            t.style.bottom = '100px';
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                t.style.opacity = '0';
+                t.style.bottom = '90px';
+            }, 2600);
+        }
+
+        // ========================================================================
+        //  RENDER FUNCTION
+        // ========================================================================
+
+        function render() {
+            const dateKey = formatDateKey(currentDate);
+            let devotion = devotionMap[dateKey];
+            if (!devotion) {
+                devotion = {
+                    date: dateKey,
+                    verseRef: "కీర్తనలు 118:24",
+                    verse: "యెహోవా చేసిన దినము ఇది; మనము దానిలో సంతోషించి ఆనందించుదము.",
+                    title: `నేటి ధ్యానం`,
+                    content: `ఈ రోజు యెహోవా చేసిన దినము. ఈ దినమున మనము సంతోషించి, ఆనందించాలి. దేవుడు ప్రతి దినము మనకు అనుగ్రహిస్తాడు. ఈ రోజు మీ జీవితంలో దేవుని కృపను, ప్రేమను అనుభవించండి. ఆయన మీకు ఈ దినమును ఇచ్చాడు, అది మీ కోసం ఒక వరం.`,
+                    prayer: `ప్రియ దేవా, ఈ రోజు నీవు నాకు ఇచ్చిన వరం. ఈ దినమున నేను సంతోషించి, ఆనందిస్తాను. నీ కృప నాతో ఉండాలని ప్రార్థిస్తున్నాను. ఆమేన్.`
+                };
+                devotionMap[dateKey] = devotion;
+                saveDevotions();
+            }
+
+            const dateObj = new Date(dateKey + 'T00:00:00');
+            const displayDate = dateObj.toLocaleDateString('te-IN', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+            document.getElementById('dateDisplay').textContent = displayDate;
+
+            const badge = document.getElementById('todayBadge');
+            if (isToday(currentDate)) { badge.classList.remove('hidden'); }
+            else { badge.classList.add('hidden'); }
+
+            const picker = document.getElementById('datePicker');
+            picker.value = dateKey;
+
+            const container = document.getElementById('contentContainer');
+            container.className = 'content-area fade-in';
+
+            let html = '';
+
+            if (editMode) {
+                html = `
+                    <div class="card verse-card">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="card-label">📖 వాక్యం</span>
+                            <span class="pill-tag pill-edit-mode">Edit Mode</span>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="edit-label">Verse</label>
+                            <textarea id="edit-verse" class="edit-field edit-textarea telugu-text" rows="2">${devotion.verse}</textarea>
+                            <label class="edit-label">Reference</label>
+                            <input id="edit-verseRef" class="edit-field" value="${devotion.verseRef}" />
+                        </div>
+                    </div>
+                    <div class="card devotion-card">
+                        <div class="space-y-2">
+                            <label class="edit-label">Title</label>
+                            <input id="edit-title" class="edit-field" value="${devotion.title}" />
+                            <label class="edit-label">Content</label>
+                            <textarea id="edit-content" class="edit-field edit-textarea telugu-text" rows="5">${devotion.content}</textarea>
+                        </div>
+                    </div>
+                    <div class="card prayer-card">
+                        <div class="space-y-2">
+                            <label class="edit-label">Prayer</label>
+                            <textarea id="edit-prayer" class="edit-field edit-textarea telugu-text" rows="3">${devotion.prayer}</textarea>
+                        </div>
+                    </div>
+                    <div class="edit-actions justify-center">
+                        <button onclick="saveAllEdits(); toggleEditMode();" class="btn btn-success text-sm">💾 Save &amp; Exit</button>
+                        <button onclick="toggleEditMode(); render();" class="btn btn-secondary text-sm">Cancel</button>
+                    </div>
+                `;
+            } else {
+                const isSpecial = devotionMap[dateKey] && !defaultMap[dateKey] ? true : false;
+                html = `
+                    <div class="card verse-card">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="card-label">📖 వాక్యం</span>
+                            ${isSpecial ? '<span class="pill-tag pill-edited">Edited</span>' : ''}
+                        </div>
+                        <div class="verse-text telugu-text font-medium">
+                            ${devotion.verse}
+                        </div>
+                        <div class="verse-ref">— ${devotion.verseRef}</div>
+                    </div>
+
+                    <div class="card devotion-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-lg">🙏</span>
+                            <h2 class="devotion-title">${devotion.title}</h2>
+                        </div>
+                        <div class="devotion-body telugu-text">
+                            ${devotion.content}
+                        </div>
+                    </div>
+
+                    <div class="card prayer-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-xl">🤲</span>
+                            <h3 class="prayer-title">ప్రార్థన</h3>
+                        </div>
+                        <div class="prayer-body telugu-text">
+                            "${devotion.prayer}"
+                        </div>
+                    </div>
+
+                    <div class="action-row">
+                        <button onclick="shareDevotion()" class="btn btn-secondary text-sm">
+                            <span>📤</span> Share
+                        </button>
+                        <button onclick="copyDevotion()" class="btn btn-secondary text-sm">
+                            <span>📋</span> Copy
+                        </button>
+                        <button onclick="goToToday()" class="btn btn-primary text-sm">
+                            <span>📅</span> Today
+                        </button>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // ========================================================================
+        //  NAVIGATION
+        // ========================================================================
+
+        function prevDay() {
+            if (editMode) {
+                if (!confirm('You are in edit mode. Exit without saving?')) return;
+                editMode = false;
+                document.getElementById('editLabel').textContent = 'Edit';
+            }
+            const newDate = new Date(currentDate);
+            newDate.setDate(newDate.getDate() - 1);
+            currentDate = newDate;
+            render();
+        }
+
+        function nextDay() {
+            if (editMode) {
+                if (!confirm('You are in edit mode. Exit without saving?')) return;
+                editMode = false;
+                document.getElementById('editLabel').textContent = 'Edit';
+            }
+            const newDate = new Date(currentDate);
+            newDate.setDate(newDate.getDate() + 1);
+            currentDate = newDate;
+            render();
+        }
+
+        function goToToday() {
+            if (editMode) {
+                if (!confirm('You are in edit mode. Exit without saving?')) return;
+                editMode = false;
+                document.getElementById('editLabel').textContent = 'Edit';
+            }
+            currentDate = new Date();
+            render();
+        }
+
+        function jumpToDate(dateStr) {
+            if (!dateStr) return;
+            if (editMode) {
+                if (!confirm('You are in edit mode. Exit without saving?')) return;
+                editMode = false;
+                document.getElementById('editLabel').textContent = 'Edit';
+            }
+            const parts = dateStr.split('-');
+            const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+            if (!isNaN(d)) {
+                currentDate = d;
+                render();
+            }
+        }
+
+        // ========================================================================
+        //  SHARE & COPY
+        // ========================================================================
+
+        function buildShareText() {
+            const dateKey = formatDateKey(currentDate);
+            const devotion = devotionMap[dateKey] || defaultMap[dateKey];
+            if (!devotion) return null;
+            const dateObj = new Date(dateKey + 'T00:00:00');
+            const smallDate = dateObj.toLocaleDateString('en-IN', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+            return `✝️ *Rephidim Fellowship*\n\n📅 ${smallDate}\n\n${devotion.verse}\n— ${devotion.verseRef}\n\n🙏 *${devotion.title}*\n\n${devotion.content}\n\n🤲 *ప్రార్థన*\n\n${devotion.prayer}\n\n— Bro. Naveen`;
+        }
+
+        const SHARE_TITLE = 'అనుదిన ధ్యానం - Daily Devotion';
+
+        function shareDevotion() {
+            const text = buildShareText();
+            if (!text) return;
+            const preview = document.getElementById('sharePreview');
+            preview.textContent = text;
+            const overlay = document.getElementById('shareOverlay');
+            overlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeShareSheet() {
+            document.getElementById('shareOverlay').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('shareOverlay').classList.contains('show')) {
+                closeShareSheet();
+            }
+        });
+
+        function shareViaWhatsApp() {
+            const text = buildShareText();
+            if (!text) return;
+            window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+        }
+
+        function shareViaTelegram() {
+            const text = buildShareText();
+            if (!text) return;
+            window.open('https://t.me/share/url?url=' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent(text), '_blank');
+        }
+
+        function shareViaEmail() {
+            const text = buildShareText();
+            if (!text) return;
+            window.location.href = 'mailto:?subject=' + encodeURIComponent(SHARE_TITLE) + '&body=' + encodeURIComponent(text);
+        }
+
+        function shareViaSMS() {
+            const text = buildShareText();
+            if (!text) return;
+            window.location.href = 'sms:?&body=' + encodeURIComponent(text);
+        }
+
+        function shareViaCopy() {
+            const text = buildShareText();
+            if (!text) return;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('✅ Copied to clipboard!');
+            }).catch(() => {
+                prompt('Copy the devotion below:', text);
+            });
+        }
+
+        function shareViaNative() {
+            const text = buildShareText();
+            if (!text) return;
+            if (navigator.share) {
+                navigator.share({ title: SHARE_TITLE, text: text }).catch(() => {});
+            } else {
+                shareViaCopy();
+            }
+        }
+
+        function copyDevotion() {
+            shareViaCopy();
+        }
+
+        // ========================================================================
+        //  HELPERS
+        // ========================================================================
+
+        function formatDateKey(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function isToday(date) {
+            const today = new Date();
+            return date.getFullYear() === today.getFullYear() &&
+                date.getMonth() === today.getMonth() &&
+                date.getDate() === today.getDate();
+        }
+
+        // ========================================================================
+        //  KEYBOARD SHORTCUTS
+        // ========================================================================
+
+        document.addEventListener('keydown', (e) => {
+            if (editMode) {
+                if (e.key === 'Escape') {
+                    toggleEditMode();
+                    render();
+                }
+                return;
+            }
+            if (e.key === 'ArrowLeft') { e.preventDefault();
+                prevDay(); }
+            if (e.key === 'ArrowRight') { e.preventDefault();
+                nextDay(); }
+            if (e.key === 't' || e.key === 'T') { e.preventDefault();
+                goToToday(); }
+            if (e.key === 'e' || e.key === 'E') { e.preventDefault();
+                toggleEditMode(); }
+        });
+
+        // ========================================================================
+        //  INIT
+        // ========================================================================
+
+        loadDarkMode();
+        loadLogo();
+        loadDevotions();
+
+        currentDate = new Date();
+        const stored = localStorage.getItem('devotion-last-date');
+        if (stored) {
+            try {
+                const d = new Date(stored);
+                if (!isNaN(d)) {
+                    const diff = Math.abs(d.getTime() - new Date().getTime());
+                    if (diff < 30 * 24 * 60 * 60 * 1000) {
+                        currentDate = d;
+                    }
+                }
+            } catch (e) {}
+        }
+
+        render();
+
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                localStorage.setItem('devotion-last-date', formatDateKey(currentDate));
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('devotion-last-date', formatDateKey(currentDate));
+        });
+
+        console.log('✝️ అనుదిన ధ్యానం - Daily Devotion App loaded successfully!');
+        console.log(`📅 Today: ${formatDateKey(new Date())}`);
+        console.log(`📖 ${Object.keys(devotionMap).length} devotions loaded.`);
+
+        const picker = document.getElementById('datePicker');
+        picker.max = formatDateKey(new Date());
+    </script>
+
+</body>
+</html>
